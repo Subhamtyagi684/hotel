@@ -13,7 +13,7 @@ const App = () => {
             <Header/>
             <Route exact path='/' component={Home} />
             <Route path='/contact' component={Contact} />
-            <Route path='/booking' component={Booking} />
+            <Route path='/booking/:hotelid' component={Booking} />
             <Route path='/hotel/:hotelid' component={Hotel} />
             <Footer/>
         </BrowserRouter>

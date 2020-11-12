@@ -30,7 +30,7 @@ class Hotel extends Component {
                                     <p class="card-text"><strong class='mr-3'>Cost: </strong> Rs. {item.cost} /-</p>
                                 </div>
                                 <div class="card-footer bg-transparent border-success">
-                                    <Link to='/booking'><button class='btn btn-success'>Book Hotel</button></Link>
+                                    <Link to={`/booking/${item._id}`}><button class='btn btn-success'>Book Hotel</button></Link>
                                     <Link to='/'><button class='btn btn-danger ml-3'>Cancel</button></Link>
                                 </div>
                                 

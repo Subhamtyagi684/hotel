@@ -93,7 +93,7 @@ class Home extends Component{
     handleViewHotelButton = (data) => {
         if (data){
             return(
-               <Link to={`/hotel/${this.state.hotelcode}`}> <button className='btn btn-dark mt-3 w-50'>View Hotel</button></Link>
+               <Link to={`/hotel/${this.state.hotelcode}`}> <button className='btn btn-success mt-4'>View Hotel</button></Link>
             )
         }
     }
@@ -106,12 +106,12 @@ class Home extends Component{
                         <div style={{position:'relative'}} className='border border-success img-thumbnail'>
                             <img src="background.jpg" className="img-fluid rounded " alt='background.jpg'/>
                             
-                            <div className='w-50' style={{position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)'}}>
+                            <div style={{position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',width:'35%'}}>
                                 <select className="custom-select w-100" onChange={this.handleCity} >
                                     <option value='-'> Select City for hotels</option> 
                                     {this.getCityList(this.state.city)}
                                 </select>
-                                <select className="custom-select w-100 mt-3" onChange={this.handleHotel}>
+                                <select className="custom-select w-100 mt-4" onChange={this.handleHotel}>
                                     <option value=''> Select Hotels</option>
                                     {this.getHotelList(this.state.hotel)}
                                 </select>
