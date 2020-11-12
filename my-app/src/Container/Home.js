@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-
+import {Link} from 'react-router-dom'
 // const Home = () => {
 //     return(
 //         <Fragment>
@@ -12,14 +12,17 @@ import React, { Component, Fragment } from 'react';
 //     )
 // }
 
-const apiurl ='https://developerfunnel.herokuapp.com/location'
+const cityapiurl ='https://developerfunnel.herokuapp.com/location'
+const hotelapiurl = 'https://developerfunnel.herokuapp.com/hotels?city='
 
 class Home extends Component{
     constructor(){
         super()
 
         this.state = {
-            city:''
+            city:'',
+            hotel:'',
+            hotelcode:'',
         }
     }
 
@@ -46,38 +49,89 @@ class Home extends Component{
         if (data){
             return(data.map((item)=>{
                 return(
-                    <option value="1" key={item.city}>{item.city_name}</option> 
+                    <option value={item.city} key={item._id}>{item.city_name}</option> 
                 )
             }))
         }
         else{
             return(
-                <option>No city available</option> 
+                <option>loading...</option> 
+            )
+        }
+    }
+
+    getHotelList = (data) => {
+        if (data){
+            return(data.map((item)=>{
+                return(
+                    <option value={item._id} key={item._id}>{item.name}</option> 
+                )
+            }))
+        }
+        else{
+            return(
+                <option>Sorry! No hotels found</option> 
+            )
+        }
+    }
+
+    handleCity = (event) => {
+        let code = event.target.value
+        fetch(`${hotelapiurl}${code}`)
+        .then(response => response.json())
+        .then(data => this.setState({
+            hotel:data
+        }));
+    }
+
+    handleHotel = (event) => {
+        this.setState({
+            hotelcode:event.target.value
+        })
+    }
+
+    handleViewHotelButton = (data) => {
+        if (data){
+            return(
+               <Link to={`/hotel/${this.state.hotelcode}`}> <button className='btn btn-dark mt-3 w-50'>View Hotel</button></Link>
             )
         }
     }
 
     render(){
-        console.log(this.state.city)
         return(
             <Fragment>
                 <center>
                     <div className='mt-2 mb-2'>
-                        <h3> Select hotel </h3>
-                        <select className="custom-select" style={{width:'50%'}}>
-                            {this.getCityList(this.state.city)}
-                        </select>
+                        <div style={{position:'relative'}} className='border border-success img-thumbnail'>
+                            <img src="background.jpg" className="img-fluid rounded " alt='background.jpg'/>
+                            
+                            <div className='w-50' style={{position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)'}}>
+                                <select className="custom-select w-100" onChange={this.handleCity} >
+                                    <option value='-'> Select City for hotels</option> 
+                                    {this.getCityList(this.state.city)}
+                                </select>
+                                <select className="custom-select w-100 mt-3" onChange={this.handleHotel}>
+                                    <option value=''> Select Hotels</option>
+                                    {this.getHotelList(this.state.hotel)}
+                                </select>
+                                {this.handleViewHotelButton(this.state.hotelcode)}
+                           </div>
+                            
+                        </div>
+
                     </div>
                 </center>
             </Fragment>
         )
     }
     componentDidMount(){
-        fetch(apiurl)
+        fetch(cityapiurl)
         .then(response => response.json())
         .then(data => this.setState({
             city:data
         }));
+        
     }
 }
 
