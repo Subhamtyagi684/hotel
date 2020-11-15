@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import {Link } from 'react-router-dom'
 
 const url = 'http://localhost:1000/bookings'
 
@@ -105,6 +106,7 @@ class Booking extends Component{
                           </select>
                       </div>
                       <button type="submit" className="btn btn-info "  onClick={this.handleSubmit}>Submit</button>
+                      <Link to ={`/hotel/${this.props.match.params.hotelid}`}><button type='button' className='btn btn-danger ml-3'>Cancel</button></Link>
                     </form>
                   </div>
               </div>

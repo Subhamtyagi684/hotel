@@ -1,10 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import {Link} from 'react-router-dom'
+import './Loader.css'
+
 // const Home = () => {
 //     return(
 //         <Fragment>
 //             <center>
-//                 <div classNameName='mt-2 mb-2'>
+//                 <div className='mt-2 mb-2'>
 //                     <h3> This is home page. </h3>
 //                 </div>
 //             </center>
@@ -13,6 +15,7 @@ import {Link} from 'react-router-dom'
 // }
 
 const cityapiurl ='https://developerfunnel.herokuapp.com/location'
+const tripapiurl ='https://developerfunnel.herokuapp.com/booking'
 const hotelapiurl = 'https://developerfunnel.herokuapp.com/hotels?city='
 
 class Home extends Component{
@@ -23,6 +26,7 @@ class Home extends Component{
             city:'',
             hotel:'',
             hotelcode:'',
+            trip:''
         }
     }
 
@@ -90,6 +94,8 @@ class Home extends Component{
         })
     }
 
+
+
     handleViewHotelButton = (data) => {
         if (data){
             return(
@@ -98,11 +104,38 @@ class Home extends Component{
         }
     }
 
+    handleTriptype = (data) => {
+        if (data){
+            return(
+                data.map((item)=> {
+                    return(
+                        <div className='col-lg-3 col-md-6'>
+                                <div className="card">
+                                    <img src={item.image} className="card-img-top" alt="..." height='160px'/>
+                                    <div className="card-body text-center">
+                                        <Link to={`/trip/${item.trip}`} className="btn btn-info">{item.name}</Link>
+                                    </div>
+                                </div>
+                            </div>
+                    )
+                })
+            )
+        }
+        else{
+            return(
+                <Fragment>
+                    <div className='col-md-12'>
+                        <div class="loader"></div>
+                    </div>
+                </Fragment>
+            )
+        }
+    }   
+
     render(){
         return(
             <Fragment>
-                <center>
-                    <div className='mt-2 mb-2'>
+                   <div className='mt-2 mb-2'>
                         <div style={{position:'relative'}} className='border border-success img-thumbnail'>
                             <img src="background.jpg" className="img-fluid rounded " alt='background.jpg'/>
                             
@@ -119,9 +152,17 @@ class Home extends Component{
                            </div>
                             
                         </div>
-
                     </div>
-                </center>
+                    <div className='mt-2'>
+                        <center>
+                            <h4 className='mt-5 mb-5 p-2' style={{background:'#17a2b8',color:'white'}}>Search by triptype</h4>
+                        </center>
+                        <div className='row'>
+                            {this.handleTriptype(this.state.trip)}  
+                            
+                        </div>
+                    </div>
+                    
             </Fragment>
         )
     }
@@ -130,6 +171,12 @@ class Home extends Component{
         .then(response => response.json())
         .then(data => this.setState({
             city:data
+        }));
+
+        fetch(tripapiurl)
+        .then(response => response.json())
+        .then(data => this.setState({
+            trip:data
         }));
         
     }

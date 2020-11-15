@@ -4,9 +4,8 @@ const Footer = () => {
     return(
         <Fragment>
             <hr className='bg-info'/>
-            <center>
-               <h3> &copy; Shubham TYagi </h3> 
-            </center>
+            <h5 className='bg-dark text-light p-3 text-center'> &copy; Shubham TYagi </h5> 
+            
 
         </Fragment>
     )

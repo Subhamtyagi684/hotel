@@ -16,22 +16,22 @@ class Hotel extends Component {
                 data.map((item)=> {
                     return(
                         <Fragment>
-                            <div class="card border-info mb-3 text-left">
-                                <div class="card-header bg-info border-info">
-                                    <h3 class='card-title text-light text-center'>{item.name} - {item.city_name}</h3>
+                            <div className="card border-info mb-3 text-left" >
+                                <div className="card-header bg-info border-info">
+                                    <h3 className='card-title text-light text-center'>{item.name} - {item.city_name}</h3>
                                 </div>
-                                <div class="card-body text-success">
-                                    <img src={item.thumb} class="img-fluid w-100" alt={item.thumb}/>
+                                <div className="card-body text-success">
+                                    <img src={item.thumb} className="img-fluid w-100" alt={item.thumb}/>
                                 </div>
-                                <div class="card-body">
-                                    <p class="card-text"><strong class='mr-3'> Address : </strong> {item.address}</p>
-                                    <p class="card-text"><strong class='mr-3'>City:</strong> {item.city_name}</p>
-                                    <p class="card-text"><strong class='mr-3'>Locality:</strong> {item.locality}</p>
-                                    <p class="card-text"><strong class='mr-3'>Cost: </strong> Rs. {item.cost} /-</p>
+                                <div className="card-body">
+                                    <p className="card-text"><strong className='mr-3'> Address : </strong> {item.address}</p>
+                                    <p className="card-text"><strong className='mr-3'>City:</strong> {item.city_name}</p>
+                                    <p className="card-text"><strong className='mr-3'>Locality:</strong> {item.locality}</p>
+                                    <p className="card-text"><strong className='mr-3'>Cost: </strong> Rs. {item.cost} /-</p>
                                 </div>
-                                <div class="card-footer bg-transparent border-success">
-                                    <Link to={`/booking/${item._id}`}><button class='btn btn-success'>Book Hotel</button></Link>
-                                    <Link to='/'><button class='btn btn-danger ml-3'>Cancel</button></Link>
+                                <div className="card-footer bg-transparent border-success">
+                                    <Link to={`/booking/${item._id}`}><button className='btn btn-success'>Book Hotel</button></Link>
+                                    <Link to={`/trip/${sessionStorage.getItem('tripType')}`}><button className='btn btn-danger ml-3'>Cancel</button></Link>
                                 </div>
                                 
                             </div>
@@ -48,8 +48,8 @@ class Hotel extends Component {
     }
 
     render(){
-        
         return(
+
             <Fragment>
                 <center>
                     <div className='mt-2 mb-2'>
@@ -65,6 +65,8 @@ class Hotel extends Component {
         .then(data => this.setState({
             hotel:data
         }));
+
+        
     }
 }
 
