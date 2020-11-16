@@ -1,1 +1,1 @@
-It is a hotel app which helps to view hotel with different categories.
+It is a hotel app which helps to view hotels with different categories.
